@@ -1,11 +1,25 @@
-import { useState } from "react";
-import Nomes from "./components/Nomes";
+import { useState, useEffect } from "react";
 
 function App() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [idade, setIdade] = useState(0);
   const [user, setUser] = useState({});
+
+  const [nutri, setNutri] = useState([]);
+
+  useEffect(() => {
+    function loadApi() {
+      let url = "https://sujeitoprogramador.com/rn-api/?api=posts";
+      fetch(url)
+        .then((r) => r.json())
+        .then((json) => {
+          console.log(json);
+          setNutri(json);
+        });
+    }
+    loadApi();
+  }, []);
 
   function handleRegister(e) {
     e.preventDefault();
@@ -50,6 +64,20 @@ function App() {
         <span>nome: {user.nome}</span>
         <span>idade: {user.idade}</span>
         <span>email: {user.email}</span>
+      </div>
+
+      <div>
+        {nutri.map((item) => {
+          return (
+            <article key={item.id}>
+              <strong>{item.titulo}</strong>
+              <img src={item.capa} alt={item.titulo} />
+              <p>{item.subtitulo}</p>
+              <h1>{item.categoria}</h1>
+              <a>acessar</a>
+            </article>
+          );
+        })}
       </div>
     </div>
   );
