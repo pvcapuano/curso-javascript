@@ -7,28 +7,29 @@ import "./home.css";
 
 const Home = () => {
   const [filmes, setFilmes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadFilmes() {
       const response = await api.get("/movie/now_playing", {
         params: {
           api_key: "1dfa62bb1b83007161dcee66d24b55b8",
+          language: "pt-BR",
           page: 1,
         },
       });
 
       console.log(response.data.results.slice(0, 10));
       setFilmes(response.data.results.slice(0, 10));
-      setLoading(true);
+      setLoading(false);
     }
     loadFilmes();
   }, []);
 
-  if (!loading) {
+  if (loading) {
     return (
       <div className="loading">
-        <h2>Loading films</h2>
+        <h2>Carregando filmes</h2>
       </div>
     );
   }
@@ -45,7 +46,7 @@ const Home = () => {
             <div className="infos">
               <strong>{filme.title}</strong>
               <Link to={`/filme/${filme.id}`} className="button">
-                More Info
+                + Info
               </Link>
             </div>
           </div>
