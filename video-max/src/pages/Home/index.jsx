@@ -31,8 +31,12 @@ const Home = () => {
               src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`}
               alt={filme.title}
             />
-            <strong>{filme.title}</strong>
-            <Link to={`/filme/${filme.id}`}>Acessar</Link>
+            <div className="infos">
+              <strong>{filme.title}</strong>
+              <Link to={`/filme/${filme.id}`} className="button">
+                More Info
+              </Link>
+            </div>
           </div>
         );
       })}
