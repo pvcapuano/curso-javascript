@@ -19,7 +19,6 @@ const Home = () => {
         },
       });
 
-      console.log(response.data.results.slice(0, 10));
       setFilmes(response.data.results.slice(0, 10));
       setLoading(false);
     }

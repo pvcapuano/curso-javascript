@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import api from "../../services/api";
 import "./filme.css";
 
@@ -30,10 +30,6 @@ const Filme = () => {
         });
     }
     loadFilme();
-
-    return () => {
-      console.log("desmontado");
-    };
   }, [navigate, id]);
 
   function salvarFilme() {
@@ -46,13 +42,13 @@ const Filme = () => {
     );
 
     if (hasFilme) {
-      alert("Esse filme ja está na lista");
+      toast.warn("Esse filme ja está na lista");
       return;
     }
 
     filmesSalvos.push(filme);
-    localStorage.setItem("favoritos", JSON.stringify(filmesSalvos))
-    alert("Filme salvo com sucesso")
+    localStorage.setItem("favoritos", JSON.stringify(filmesSalvos));
+    toast.success("Video salvo com sucesso!");
   }
 
   if (loading) {
